@@ -1,0 +1,2 @@
+--with-boost-regex=boost_regex
+--with-bash-completion=/usr/share/bash-completion/completions
