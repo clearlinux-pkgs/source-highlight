@@ -4,7 +4,7 @@
 #
 Name     : source-highlight
 Version  : 3.1.7
-Release  : 19
+Release  : 20
 URL      : ftp://ftp.gnu.org/gnu/src-highlite/source-highlight-3.1.7.tar.gz
 Source0  : ftp://ftp.gnu.org/gnu/src-highlite/source-highlight-3.1.7.tar.gz
 Summary  : syntax highlighting for source documents
