@@ -6,7 +6,7 @@
 #
 Name     : source-highlight
 Version  : 3.1.8
-Release  : 28
+Release  : 29
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.8.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.8.tar.gz
 Source99 : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.8.tar.gz.sig
