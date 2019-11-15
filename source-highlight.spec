@@ -6,15 +6,16 @@
 #
 Name     : source-highlight
 Version  : 3.1.9
-Release  : 33
+Release  : 34
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source1 : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
-Summary  : Convert source code to syntax highlighted document
+Summary  : syntax highlighting for source documents
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
 Requires: source-highlight-bin = %{version}-%{release}
 Requires: source-highlight-data = %{version}-%{release}
+Requires: source-highlight-info = %{version}-%{release}
 Requires: source-highlight-lib = %{version}-%{release}
 Requires: source-highlight-license = %{version}-%{release}
 Requires: source-highlight-man = %{version}-%{release}
@@ -57,7 +58,6 @@ Requires: source-highlight-bin = %{version}-%{release}
 Requires: source-highlight-data = %{version}-%{release}
 Provides: source-highlight-devel = %{version}-%{release}
 Requires: source-highlight = %{version}-%{release}
-Requires: source-highlight = %{version}-%{release}
 
 %description dev
 dev components for the source-highlight package.
@@ -67,9 +67,18 @@ dev components for the source-highlight package.
 Summary: doc components for the source-highlight package.
 Group: Documentation
 Requires: source-highlight-man = %{version}-%{release}
+Requires: source-highlight-info = %{version}-%{release}
 
 %description doc
 doc components for the source-highlight package.
+
+
+%package info
+Summary: info components for the source-highlight package.
+Group: Default
+
+%description info
+info components for the source-highlight package.
 
 
 %package lib
@@ -100,14 +109,14 @@ man components for the source-highlight package.
 
 %prep
 %setup -q -n source-highlight-3.1.9
+cd %{_builddir}/source-highlight-3.1.9
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571088199
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1573790554
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -125,7 +134,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1571088199
+export SOURCE_DATE_EPOCH=1573790554
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/source-highlight
 cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-licenses/source-highlight/af0a86c5fbc3c0fa0cbf93f8a8a0adf00ace50b3
@@ -444,7 +453,11 @@ cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-li
 %files doc
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/source\-highlight/*
-%doc /usr/share/info/*
+
+%files info
+%defattr(0644,root,root,0755)
+/usr/share/info/source-highlight-lib.info
+/usr/share/info/source-highlight.info
 
 %files lib
 %defattr(-,root,root,-)
