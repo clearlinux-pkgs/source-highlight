@@ -6,7 +6,7 @@
 #
 Name     : source-highlight
 Version  : 3.1.9
-Release  : 34
+Release  : 35
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source1 : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
