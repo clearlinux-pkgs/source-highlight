@@ -6,10 +6,10 @@
 #
 Name     : source-highlight
 Version  : 3.1.9
-Release  : 35
+Release  : 36
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
-Source1 : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
+Source1  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
 Summary  : syntax highlighting for source documents
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
@@ -116,7 +116,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573790554
+export SOURCE_DATE_EPOCH=1583370998
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -134,7 +134,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1573790554
+export SOURCE_DATE_EPOCH=1583370998
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/source-highlight
 cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-licenses/source-highlight/af0a86c5fbc3c0fa0cbf93f8a8a0adf00ace50b3
