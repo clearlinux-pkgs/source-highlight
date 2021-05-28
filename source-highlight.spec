@@ -6,7 +6,7 @@
 #
 Name     : source-highlight
 Version  : 3.1.9
-Release  : 38
+Release  : 39
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source1  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
@@ -23,6 +23,7 @@ BuildRequires : bison
 BuildRequires : boost-dev
 BuildRequires : buildreq-golang
 BuildRequires : buildreq-qmake
+BuildRequires : compat-gcc-10-dev
 BuildRequires : ctags
 BuildRequires : flex
 BuildRequires : help2man
@@ -111,11 +112,15 @@ man components for the source-highlight package.
 cd %{_builddir}/source-highlight-3.1.9
 
 %build
+## build_prepend content
+export CC=gcc-10
+export CXX=g++-10
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1592607215
+export SOURCE_DATE_EPOCH=1622173849
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -130,10 +135,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1592607215
+export SOURCE_DATE_EPOCH=1622173849
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/source-highlight
 cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-licenses/source-highlight/af0a86c5fbc3c0fa0cbf93f8a8a0adf00ace50b3
