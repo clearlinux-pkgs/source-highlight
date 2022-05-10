@@ -6,7 +6,7 @@
 #
 Name     : source-highlight
 Version  : 3.1.9
-Release  : 40
+Release  : 41
 URL      : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz
 Source1  : https://mirrors.kernel.org/gnu/src-highlite/source-highlight-3.1.9.tar.gz.sig
@@ -19,14 +19,25 @@ Requires: source-highlight-info = %{version}-%{release}
 Requires: source-highlight-lib = %{version}-%{release}
 Requires: source-highlight-license = %{version}-%{release}
 Requires: source-highlight-man = %{version}-%{release}
+BuildRequires : automake
+BuildRequires : automake-dev
 BuildRequires : bison
 BuildRequires : boost-dev
 BuildRequires : buildreq-qmake
-BuildRequires : compat-gcc-10-dev
 BuildRequires : ctags
 BuildRequires : flex
+BuildRequires : gettext-bin
 BuildRequires : help2man
+BuildRequires : libtool
+BuildRequires : libtool-dev
+BuildRequires : m4
+BuildRequires : pkg-config-dev
+BuildRequires : texinfo
 BuildRequires : valgrind
+Patch1: backport-0001-Add-support-for-YAML.patch
+Patch2: backport-0002-Add-support-for-C-14-digit-separators.patch
+Patch3: backport-0003-Remove-throw-specifications.patch
+Patch4: backport-0004-Fix-tests-build-failure-on-clang-and-gcc-12.patch
 
 %description
 This program, given a source file, produces a document with syntax highlighting.
@@ -109,23 +120,23 @@ man components for the source-highlight package.
 %prep
 %setup -q -n source-highlight-3.1.9
 cd %{_builddir}/source-highlight-3.1.9
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
-## build_prepend content
-export CC=gcc-10
-export CXX=g++-10
-## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647891664
+export SOURCE_DATE_EPOCH=1652160477
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
 export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
-%configure --disable-static --with-boost-regex=boost_regex \
+%reconfigure --disable-static --with-boost-regex=boost_regex \
 --with-bash-completion=/usr/share/bash-completion/completions
 make  %{?_smp_mflags}
 
@@ -137,7 +148,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1647891664
+export SOURCE_DATE_EPOCH=1652160477
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/source-highlight
 cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-licenses/source-highlight/af0a86c5fbc3c0fa0cbf93f8a8a0adf00ace50b3
@@ -359,6 +370,7 @@ cp %{_builddir}/source-highlight-3.1.9/COPYING %{buildroot}/usr/share/package-li
 /usr/share/source-highlight/xhtmltable.outlang
 /usr/share/source-highlight/xml.lang
 /usr/share/source-highlight/xorg.lang
+/usr/share/source-highlight/yaml.lang
 /usr/share/source-highlight/zsh.lang
 
 %files dev
